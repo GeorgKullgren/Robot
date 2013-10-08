@@ -8,7 +8,7 @@ import org.kullgren.robot.Movement;
 
 import android.test.AndroidTestCase;
 
-public class CardTest extends AndroidTestCase{
+public class CardTest extends AndroidTestCase {
 
 //	Card card;
 	
