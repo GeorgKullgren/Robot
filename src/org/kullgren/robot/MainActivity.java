@@ -1,5 +1,8 @@
 package org.kullgren.robot;
 
+import java.util.ArrayList;
+import java.util.Vector;
+
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,43 +29,52 @@ public class MainActivity extends FragmentActivity implements
 	 * current dropdown position.
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
-
+	private int selectedItem = -1;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Set up the action bar to show a dropdown list.
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
-		// Set up the dropdown list navigation in the action bar.
-		actionBar.setListNavigationCallbacks(
-		// Specify a SpinnerAdapter to populate the dropdown list.
-				new ArrayAdapter<String>(actionBar.getThemedContext(),
-						android.R.layout.simple_list_item_1,
-						android.R.id.text1, new String[] {
-								getString(R.string.title_section1),
-								getString(R.string.title_section2),
-								getString(R.string.title_section3), }), this);
+		ArrayList<Card> cards = getRandomCards(5);
 		
-	    GridView gridview = (GridView) findViewById(R.id.Hand);
-	    gridview.setAdapter(new ImageAdapter(this));
+	    GridView boardView = (GridView) findViewById(R.id.Board);
+	    boardView.setAdapter(new DisplayBoardAdapter(this));
+		
+	    GridView handView = (GridView) findViewById(R.id.Hand);
+	    handView.setAdapter(new DisplayCardsAdapter(this, cards));
 
-	    gridview.setOnItemClickListener(new OnItemClickListener() {
+	    handView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+	        	selectedItem = position;
 	            Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
 	        }
 	    });
 
+	    GridView controlView = (GridView) findViewById(R.id.Control);
+	    controlView.setAdapter(new DisplayControlAdapter(this));
+
+	    controlView.setOnItemClickListener(new OnItemClickListener() {
+	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+	        	selectedItem = position;
+	            Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+	        }
+	    });
 	}
 
-	private Cards getRandomCards(int numberOfCards) {
-		Cards cards = new Cards();
-		Card card = new Card(Movement.Forward, 19);
-		cards.addCard(card);
-		return cards;
+	private ArrayList<Card> getRandomCards(int numberOfCards) {
+		Card card1 = new Card(Movement.Forward, 19);
+		Card card2 = new Card(Movement.TurnLeft, 19);
+		Card card3 = new Card(Movement.TurnRight, 19);
+		Card card4 = new Card(Movement.Wait, 19);
+		Card card5 = new Card(Movement.TurnLeft, 19);
+		ArrayList<Card> myCards = new ArrayList<Card>();
+		myCards.add(card1);
+		myCards.add(card2);
+		myCards.add(card3);
+		myCards.add(card4);
+		myCards.add(card5);
+		return myCards;
 	}
 
 	@Override

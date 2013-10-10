@@ -1,21 +1,25 @@
 package org.kullgren.robot;
 
+import java.util.ArrayList;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-public class ImageAdapter extends BaseAdapter {
+public class DisplayCardsAdapter extends BaseAdapter {
 	private MainActivity mContext;
+	private ArrayList<Card> mCards;
 	
-	public ImageAdapter(MainActivity mainActivity) {
+	public DisplayCardsAdapter(MainActivity mainActivity, ArrayList<Card> cards) {
 		mContext = mainActivity;
+		mCards = cards;
 	}
 
 	@Override
 	public int getCount() {
-		return mThumbIds.length;
+		return mCards.size();
 	}
 
 	@Override
@@ -35,14 +39,14 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setLayoutParams(new GridView.LayoutParams(64, 64));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            imageView.setPadding(1, 1, 1, 1);
         } else {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(mThumbIds[position]);
+        imageView.setImageResource(mThumbIds[ mCards.get(position).getType().ordinal() ]);
         return imageView;
 	}
 
