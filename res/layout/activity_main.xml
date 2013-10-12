@@ -10,12 +10,12 @@
        	android:id="@+id/Board"
        	android:layout_width="wrap_content"
        	android:layout_height="wrap_content"
-		android:columnWidth="20dp"
-   		android:numColumns="12"
+		android:columnWidth="24px"
+   		android:numColumns="20"
    		android:verticalSpacing="0dp"
    		android:horizontalSpacing="0dp"
-   		android:stretchMode="columnWidth"
-   		android:gravity="center" >
+   		android:stretchMode="none"
+   		android:gravity="fill" >
    	</GridView>
     	
 	<GridView

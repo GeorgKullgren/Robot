@@ -10,15 +10,16 @@ import android.widget.ImageView;
 
 public class DisplayBoardAdapter extends BaseAdapter{
 	private MainActivity mContext;
-	private ArrayList<Card> mCards;
+	private ArrayList<BoardPosition> mBoardPosition;
 	
-	public DisplayBoardAdapter(MainActivity mainActivity) {
+	public DisplayBoardAdapter(MainActivity mainActivity, ArrayList<BoardPosition> boardPosition) {
 		mContext = mainActivity;
+		mBoardPosition = boardPosition;
 	}
 
 	@Override
 	public int getCount() {
-		return 144;
+		return 400;
 	}
 
 	@Override
@@ -45,13 +46,13 @@ public class DisplayBoardAdapter extends BaseAdapter{
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(mThumbIds[position%4]);
+        imageView.setImageResource(mThumbIds[mBoardPosition.get(position).getBlockedDirection().ordinal()]);
         return imageView;
 	}
 
     // references to our images
     private Integer[] mThumbIds = {
-            R.drawable.button_close_icon, R.drawable.button_next_icon,
-            R.drawable.button_previous_icon, R.drawable.button_reload_icon
+            R.drawable.open_space, R.drawable.blocked_up,
+            R.drawable.blocked_right, R.drawable.blocked_down, R.drawable.blocked_left
     };
 }
