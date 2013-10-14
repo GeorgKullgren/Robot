@@ -10,11 +10,11 @@ import android.widget.ImageView;
 
 public class DisplayBoardAdapter extends BaseAdapter{
 	private MainActivity mContext;
-	private ArrayList<BoardPosition> mBoardPosition;
+	private Board mBoard;
 	
-	public DisplayBoardAdapter(MainActivity mainActivity, ArrayList<BoardPosition> boardPosition) {
+	public DisplayBoardAdapter(MainActivity mainActivity, Board board) {
 		mContext = mainActivity;
-		mBoardPosition = boardPosition;
+		mBoard = board;
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class DisplayBoardAdapter extends BaseAdapter{
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(mThumbIds[mBoardPosition.get(position).getBlockedDirection().ordinal()]);
+        imageView.setImageResource(mThumbIds[mBoard.get(position).getBlockedDirection().ordinal()]);
         return imageView;
 	}
 

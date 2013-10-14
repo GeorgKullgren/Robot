@@ -36,12 +36,14 @@ public class MainActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		ArrayList<Card> cards = getRandomCards(5);
+		Hand hand = new Hand();
+		ArrayList<Card> cards = hand.getRandomCards(5);
+		
 		Board board = new Board(20,20);
-		ArrayList<BoardPosition> boardPosition = board.getRandomBoard();
+		board.createRandomBoard();
 		
 	    GridView boardView = (GridView) findViewById(R.id.Board);
-	    boardView.setAdapter(new DisplayBoardAdapter(this, boardPosition));
+	    boardView.setAdapter(new DisplayBoardAdapter(this, board));
 		
 	    GridView handView = (GridView) findViewById(R.id.Hand);
 	    handView.setAdapter(new DisplayCardsAdapter(this, cards));
@@ -62,21 +64,6 @@ public class MainActivity extends FragmentActivity implements
 	            Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
 	        }
 	    });
-	}
-
-	private ArrayList<Card> getRandomCards(int numberOfCards) {
-		Card card1 = new Card(Movement.Forward, 19);
-		Card card2 = new Card(Movement.TurnLeft, 19);
-		Card card3 = new Card(Movement.TurnRight, 19);
-		Card card4 = new Card(Movement.Wait, 19);
-		Card card5 = new Card(Movement.TurnLeft, 19);
-		ArrayList<Card> myCards = new ArrayList<Card>();
-		myCards.add(card1);
-		myCards.add(card2);
-		myCards.add(card3);
-		myCards.add(card4);
-		myCards.add(card5);
-		return myCards;
 	}
 
 	@Override
