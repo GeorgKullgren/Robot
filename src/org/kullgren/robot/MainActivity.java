@@ -37,7 +37,8 @@ public class MainActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_main);
 
 		ArrayList<Card> cards = getRandomCards(5);
-		ArrayList<BoardPosition> boardPosition = getRandomBoard();
+		Board board = new Board(20,20);
+		ArrayList<BoardPosition> boardPosition = board.getRandomBoard();
 		
 	    GridView boardView = (GridView) findViewById(R.id.Board);
 	    boardView.setAdapter(new DisplayBoardAdapter(this, boardPosition));
@@ -61,16 +62,6 @@ public class MainActivity extends FragmentActivity implements
 	            Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
 	        }
 	    });
-	}
-
-	private ArrayList<BoardPosition> getRandomBoard() {
-		ArrayList<BoardPosition> boardPosition = new ArrayList<BoardPosition>();
-		for (int i=0; i<400; i++) {
-			BoardPosition pos = new BoardPosition();
-			pos.setBlockedDirection(Direction.None);
-			boardPosition.add(pos);
-		}
-		return boardPosition;
 	}
 
 	private ArrayList<Card> getRandomCards(int numberOfCards) {
