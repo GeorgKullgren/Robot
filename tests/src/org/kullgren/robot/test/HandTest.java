@@ -37,5 +37,17 @@ public class HandTest extends AndroidTestCase {
 		Hand hand = new Hand();
 		Card card1 = new Card(Movement.Forward, 19);
 		hand.addCard(card1);
+		assertNotNull(hand.getCard(0));
+	}
+
+	public void testSwapCards() {
+		Hand hand = new Hand();
+		Card card0 = new Card(Movement.Forward, 19);
+		Card card1 = new Card(Movement.Forward, 19);
+		hand.addCard(card0);
+		hand.addCard(card1);
+
+		hand.swapCards(0, 1);
+		assertEquals(hand.getCard(0), card1);
 	}
 }

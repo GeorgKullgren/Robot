@@ -25,8 +25,7 @@ public class Hand {
 	}
 
 	public int numCards() {
-		// TODO Auto-generated method stub
-		return 5;
+		return size;
 	}
 
 	public Card getCard(int position) {
@@ -38,6 +37,14 @@ public class Hand {
 
 	public void addCard(Card card) {
 		myCards.add(card);
+		size++;
+	}
+
+	public void swapCards(int i, int j) {
+		Card card1 = myCards.get(i);
+		Card card2 = myCards.get(j);
+		myCards.set(i, card2);
+		myCards.set(j, card1);
 	}
 
 
