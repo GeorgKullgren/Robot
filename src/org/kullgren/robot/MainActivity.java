@@ -37,7 +37,7 @@ public class MainActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_main);
 
 		Hand hand = new Hand();
-		ArrayList<Card> cards = hand.getRandomCards(5);
+		hand.generateRandomCards(5);
 		
 		Board board = new Board(20,20);
 		board.createRandomBoard();
@@ -46,7 +46,7 @@ public class MainActivity extends FragmentActivity implements
 	    boardView.setAdapter(new DisplayBoardAdapter(this, board));
 		
 	    GridView handView = (GridView) findViewById(R.id.Hand);
-	    handView.setAdapter(new DisplayCardsAdapter(this, cards));
+	    handView.setAdapter(new DisplayCardsAdapter(this, hand));
 
 	    handView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {

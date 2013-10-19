@@ -10,16 +10,16 @@ import android.widget.ImageView;
 
 public class DisplayCardsAdapter extends BaseAdapter {
 	private MainActivity mContext;
-	private ArrayList<Card> mCards;
+	private Hand mHand;
 	
-	public DisplayCardsAdapter(MainActivity mainActivity, ArrayList<Card> cards) {
+	public DisplayCardsAdapter(MainActivity mainActivity, Hand hand) {
 		mContext = mainActivity;
-		mCards = cards;
+		mHand = hand;
 	}
 
 	@Override
 	public int getCount() {
-		return mCards.size();
+		return mHand.numCards();
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class DisplayCardsAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(mThumbIds[ mCards.get(position).getType().ordinal() ]);
+        imageView.setImageResource(mThumbIds[ mHand.getCard(position).getType().ordinal() ]);
         return imageView;
 	}
 
