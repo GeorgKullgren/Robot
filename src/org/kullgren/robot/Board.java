@@ -22,6 +22,11 @@ public class Board {
 		return board.get(position);
 	}
 	
+	private void createHole(int x, int y) {
+		int position = y*Columns+x;
+		board.get(position).createHole();		
+	}
+	
 	private void setBlockedDirection(int x, int y, Direction direction) {
 		int position = y*Columns+x;
 		setBlockedDirection(position, direction);
@@ -50,23 +55,68 @@ public class Board {
 			BoardPosition pos = new BoardPosition();
 			board.add(pos);
 		}
-		setBlockedDirection(2, 7, Direction.Down);
-		setBlockedDirection(3, 7, Direction.Down);
-		setBlockedDirection(3, 7, Direction.Right);
-		setBlockedDirection(3, 6, Direction.Right);
+		createHole(2, 2);
+		createHole(17, 2);
+		createHole(2, 17);
+		createHole(17, 17);
+		createHole(7, 5);
+		createHole(12, 5);
+		createHole(7, 14);
+		createHole(12, 14);
+		
 		setBlockedDirection(5, 2, Direction.Down);
 		setBlockedDirection(6, 2, Direction.Down);
 		setBlockedDirection(6, 2, Direction.Right);
-		setBlockedDirection(6, 3, Direction.Right);
-		setBlockedDirection(9, 4, Direction.Right);
-		setBlockedDirection(9, 5, Direction.Right);
-		setBlockedDirection(13, 3, Direction.Left);
 		setBlockedDirection(13, 2, Direction.Left);
 		setBlockedDirection(13, 2, Direction.Down);		
 		setBlockedDirection(14, 2, Direction.Down);
+		setBlockedDirection(6, 3, Direction.Right);
+		setBlockedDirection(13, 3, Direction.Left);
+		setBlockedDirection(9, 4, Direction.Right);
+		setBlockedDirection(9, 5, Direction.Right);
+		setBlockedDirection(3, 6, Direction.Right);
+		setBlockedDirection(16, 6, Direction.Left);
+		setBlockedDirection(2, 7, Direction.Down);
+		setBlockedDirection(3, 7, Direction.Down);
+		setBlockedDirection(3, 7, Direction.Right);
+		setBlockedDirection(7, 7, Direction.Left);
+		setBlockedDirection(12, 7, Direction.Right);
 		setBlockedDirection(17, 7, Direction.Down);
 		setBlockedDirection(16, 7, Direction.Down);
 		setBlockedDirection(16, 7, Direction.Left);
-		setBlockedDirection(16, 6, Direction.Left);
+		setBlockedDirection(7, 8, Direction.Left);
+		setBlockedDirection(7, 8, Direction.Down);
+		setBlockedDirection(8, 8, Direction.Down);
+		setBlockedDirection(11, 8, Direction.Down);
+		setBlockedDirection(12, 8, Direction.Right);
+		setBlockedDirection(12, 8, Direction.Down);
+		
+		setBlockedDirection(5, 17, Direction.Up);
+		setBlockedDirection(6, 17, Direction.Up);
+		setBlockedDirection(6, 17, Direction.Right);
+		setBlockedDirection(13, 17, Direction.Left);
+		setBlockedDirection(13, 17, Direction.Up);		
+		setBlockedDirection(14, 17, Direction.Up);
+		setBlockedDirection(6, 16, Direction.Right);
+		setBlockedDirection(13, 16, Direction.Left);
+		setBlockedDirection(9, 15, Direction.Right);
+		setBlockedDirection(9, 14, Direction.Right);
+		setBlockedDirection(3, 13, Direction.Right);
+		setBlockedDirection(16, 13, Direction.Left);
+		setBlockedDirection(2, 12, Direction.Up);
+		setBlockedDirection(3, 12, Direction.Up);
+		setBlockedDirection(3, 12, Direction.Right);
+		setBlockedDirection(7, 12, Direction.Left);
+		setBlockedDirection(12, 12, Direction.Right);
+		setBlockedDirection(17, 12, Direction.Up);
+		setBlockedDirection(16, 12, Direction.Up);
+		setBlockedDirection(16, 12, Direction.Left);
+		setBlockedDirection(7, 11, Direction.Left);
+		setBlockedDirection(7, 11, Direction.Up);
+		setBlockedDirection(8, 11, Direction.Up);
+		setBlockedDirection(11, 11, Direction.Up);
+		setBlockedDirection(12, 11, Direction.Right);
+		setBlockedDirection(12, 11, Direction.Up);
+		
 	}
 }

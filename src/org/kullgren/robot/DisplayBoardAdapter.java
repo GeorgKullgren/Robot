@@ -50,7 +50,12 @@ public class DisplayBoardAdapter extends BaseAdapter{
         int numLayers = mBoard.get(position).getNumBlockedDirections() + 1;
         int currentLayer = 0;
         Drawable[] layers = new Drawable[numLayers];
-        layers[0] = r.getDrawable(mThumbIds[0]);
+        if (mBoard.get(position).isHole()) {
+            layers[0] = r.getDrawable(mThumbIds[3]);        	
+        }
+        else {
+        	layers[0] = r.getDrawable(mThumbIds[0]);        	
+        }
         ++currentLayer;
         
         if (mBoard.get(position).isBlocked(Direction.Up)) {
@@ -105,6 +110,6 @@ public class DisplayBoardAdapter extends BaseAdapter{
     // references to our images
     private Integer[] mThumbIds = {
             R.drawable.open_space, R.drawable.blocked_ns,
-            R.drawable.blocked_ew
+            R.drawable.blocked_ew, R.drawable.sink
     };
 }

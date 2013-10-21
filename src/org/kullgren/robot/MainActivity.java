@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ public class MainActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Hand hand = new Hand();
+		final Hand hand = new Hand();
 		hand.generateRandomCards(5);
 		
 		Board board = new Board(20,20);
@@ -46,11 +47,14 @@ public class MainActivity extends FragmentActivity implements
 	    boardView.setAdapter(new DisplayBoardAdapter(this, board));
 		
 	    GridView handView = (GridView) findViewById(R.id.Hand);
-	    handView.setAdapter(new DisplayCardsAdapter(this, hand));
+	    final BaseAdapter handAdapter = new DisplayCardsAdapter(this, hand);
+	    handView.setAdapter(handAdapter);
 
 	    handView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 	        	selectedItem = position;
+	        	hand.swapCards(0, 1);
+	        	handAdapter.notifyDataSetChanged();
 	            Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
 	        }
 	    });

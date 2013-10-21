@@ -3,6 +3,7 @@ package org.kullgren.robot;
 public class BoardPosition {
 	private boolean[] blockedDirection;
 	private int numBlockedDirections;
+	private boolean hole;
 	
 	public BoardPosition() {
 		blockedDirection = new boolean[4];
@@ -12,6 +13,15 @@ public class BoardPosition {
 		blockedDirection[3] = false;
 		numBlockedDirections = 0;
 	}
+	
+	public void createHole() {
+		hole = true;
+	}
+	
+	public boolean isHole() {
+		return hole;
+	}
+	
 	public void setBlockedDirection(Direction direction) {
 		blockedDirection[direction.ordinal()] = true;
 		++numBlockedDirections;
