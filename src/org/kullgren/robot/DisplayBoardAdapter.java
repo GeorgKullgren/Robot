@@ -1,7 +1,8 @@
 package org.kullgren.robot;
 
-import java.util.ArrayList;
-
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,19 +41,70 @@ public class DisplayBoardAdapter extends BaseAdapter{
         if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(24, 24));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(0, 0, 0, 0);
         } else {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(mThumbIds[mBoard.get(position).getBlockedDirection().ordinal()]);
+        Resources r = mContext.getResources();
+        int numLayers = mBoard.get(position).getNumBlockedDirections() + 1;
+        int currentLayer = 0;
+        Drawable[] layers = new Drawable[numLayers];
+        layers[0] = r.getDrawable(mThumbIds[0]);
+        ++currentLayer;
+        
+        if (mBoard.get(position).isBlocked(Direction.Up)) {
+        	layers[currentLayer] = r.getDrawable(mThumbIds[1]);
+        	++currentLayer;
+        }
+        
+        if (mBoard.get(position).isBlocked(Direction.Down)) {
+        	layers[currentLayer] = r.getDrawable(mThumbIds[1]);
+        	++currentLayer;
+        }
+
+        if (mBoard.get(position).isBlocked(Direction.Left)) {
+        	layers[currentLayer] = r.getDrawable(mThumbIds[2]);
+        	++currentLayer;
+        }
+        
+        if (mBoard.get(position).isBlocked(Direction.Right)) {
+        	layers[currentLayer] = r.getDrawable(mThumbIds[2]);
+        	++currentLayer;
+        }
+                
+        LayerDrawable layerDrawable = new LayerDrawable(layers);
+        int hight = layerDrawable.getIntrinsicHeight();
+        layerDrawable.setLayerInset(0, 0, 0, 0, 0);
+ 
+        currentLayer = 1;
+        if (mBoard.get(position).isBlocked(Direction.Up)) {
+            layerDrawable.setLayerInset(currentLayer, 0, 0, 0, hight*9/10);
+        	++currentLayer;
+        }
+        
+        if (mBoard.get(position).isBlocked(Direction.Down)) {
+        	layerDrawable.setLayerInset(currentLayer, 0, hight*9/10, 0, 0);
+        	++currentLayer;
+        }
+
+        if (mBoard.get(position).isBlocked(Direction.Left)) {
+        	layerDrawable.setLayerInset(currentLayer, 0, 0, hight*9/10, 0);
+        	++currentLayer;
+        }
+        
+        if (mBoard.get(position).isBlocked(Direction.Right)) {
+        	layerDrawable.setLayerInset(currentLayer, hight*9/10, 0, 0, 0);
+        	++currentLayer;
+        }
+        
+        imageView.setImageDrawable(layerDrawable);
         return imageView;
 	}
 
     // references to our images
     private Integer[] mThumbIds = {
-            R.drawable.open_space, R.drawable.blocked_up,
-            R.drawable.blocked_right, R.drawable.blocked_down, R.drawable.blocked_left
+            R.drawable.open_space, R.drawable.blocked_ns,
+            R.drawable.blocked_ew
     };
 }

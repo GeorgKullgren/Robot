@@ -1,14 +1,28 @@
 package org.kullgren.robot;
 
 public class BoardPosition {
-	private Direction blockedDirection;
-
+	private boolean[] blockedDirection;
+	private int numBlockedDirections;
+	
+	public BoardPosition() {
+		blockedDirection = new boolean[4];
+		blockedDirection[0] = false;
+		blockedDirection[1] = false;
+		blockedDirection[2] = false;
+		blockedDirection[3] = false;
+		numBlockedDirections = 0;
+	}
 	public void setBlockedDirection(Direction direction) {
-		blockedDirection = direction;	
+		blockedDirection[direction.ordinal()] = true;
+		++numBlockedDirections;
 	}
 	
-	public Direction getBlockedDirection()
+	public boolean isBlocked(Direction direction)
 	{
-		return blockedDirection;
+		return blockedDirection[direction.ordinal()];
+	}
+	
+	public int getNumBlockedDirections() {
+		return numBlockedDirections;
 	}
 }
