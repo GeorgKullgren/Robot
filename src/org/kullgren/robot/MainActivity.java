@@ -52,10 +52,12 @@ public class MainActivity extends FragmentActivity implements
 
 	    handView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-	        	selectedItem = position;
-	        	hand.swapCards(0, 1);
-	        	handAdapter.notifyDataSetChanged();
-	            Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+	        	if (selectedItem == position) {
+	        		selectedItem = -1;
+	        	}
+	        	else {
+	        		selectedItem = position;	        		
+	        	}
 	        }
 	    });
 
@@ -64,8 +66,34 @@ public class MainActivity extends FragmentActivity implements
 
 	    controlView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-	        	selectedItem = position;
-	            Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+	        	if (position == 3) {
+	        		// execute moves
+	        	}
+	        	else if (selectedItem != -1) {
+	        		switch (position) {
+	        		case 0:
+	        			// Move selected item right
+	        			if (selectedItem < 4) {
+	        	        	hand.swapCards(selectedItem, selectedItem+1);
+	        	        	++selectedItem;
+	        	        	handAdapter.notifyDataSetChanged();
+	        			}
+	        			break;
+	        		case 1:
+	        			// Move selected item left
+	        			if (selectedItem > 0) {
+	        	        	hand.swapCards(selectedItem, selectedItem-1);
+	        	        	--selectedItem;
+	        	        	handAdapter.notifyDataSetChanged();
+	        			}
+	        			break;
+	        		case 2:
+	        			// Throw away this card.
+	        			break;
+	        		default:
+	        			break;
+	        		}
+	        	}
 	        }
 	    });
 	}
