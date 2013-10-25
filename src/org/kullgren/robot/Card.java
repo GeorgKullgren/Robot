@@ -7,6 +7,7 @@ public class Card {
 	public Card(Movement move, int pri) {
 		cardType = move;
 		priority = pri;
+		selectedFlag = false;
 	}
 	
 	public void setPriority(int value) {
@@ -25,6 +26,28 @@ public class Card {
 		return cardType;
 	}
 
+	public void setSelectedFlag() {
+		selectedFlag = true;
+	}
+
+	public void clearSelectedFlag() {
+		selectedFlag = false;
+	}
+
+	public boolean isSelected() {
+		return selectedFlag;
+	}
+
+	public void toggleSelectedFlag() {
+		if (selectedFlag) {
+			selectedFlag = false;
+		}
+		else {
+			selectedFlag = true;
+		}
+	}
+
 	Movement cardType;
 	int priority;
+	boolean selectedFlag;
 }

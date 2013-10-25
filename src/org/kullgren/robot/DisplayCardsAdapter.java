@@ -2,6 +2,8 @@ package org.kullgren.robot;
 
 import java.util.ArrayList;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -47,6 +49,9 @@ public class DisplayCardsAdapter extends BaseAdapter {
         }
 
         imageView.setImageResource(mThumbIds[ mHand.getCard(position).getType().ordinal() ]);
+        if (mHand.getCard(position).isSelected()) {
+        	imageView.setColorFilter(Color.BLUE, Mode.LIGHTEN);
+        }
         return imageView;
 	}
 
