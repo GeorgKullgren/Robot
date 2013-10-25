@@ -1,7 +1,5 @@
 package org.kullgren.robot;
 
-import java.util.ArrayList;
-
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.view.View;
