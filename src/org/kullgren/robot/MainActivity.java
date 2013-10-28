@@ -67,28 +67,19 @@ public class MainActivity extends FragmentActivity implements
 	        		switch (position) {
 	        		case 0:
 	        			// Move selected item right
-	        			if (selectedItem < 4) {
-	        	        	hand.swapCards();
-	        	        	selectedItem = -1;
-	        	        	handAdapter.notifyDataSetChanged();
-	        			}
+	        			hand.moveSelectedCardsRight();
 	        			break;
 	        		case 1:
 	        			// Move selected item left
-	        			if (selectedItem > 0) {
-	        	        	hand.swapCards();
-	        	        	selectedItem = -1;
-	        	        	handAdapter.notifyDataSetChanged();
-	        			}
+	        			hand.moveSelectedCardsLeft();
 	        			break;
 	        		case 2:
-	        			// Throw away this card.
-        	        	selectedItem = -1;
+	        			// Throw away cards.
 	        			break;
 	        		default:
-        	        	selectedItem = -1;
 	        			break;
 	        		}
+	        		handAdapter.notifyDataSetChanged();
 	        	}
 	        }
 	    });

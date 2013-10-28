@@ -50,6 +50,9 @@ public class DisplayCardsAdapter extends BaseAdapter {
         if (mHand.isCardSelected(position)) {
         	imageView.setColorFilter(Color.BLUE, Mode.LIGHTEN);
         }
+        else {
+        	imageView.clearColorFilter();        	
+        }
         return imageView;
 	}
 

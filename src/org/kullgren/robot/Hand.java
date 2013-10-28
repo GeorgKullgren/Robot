@@ -59,9 +59,9 @@ public class Hand {
 	}
 	
 	public void swapCards() {
-//		if (selectedCards.size() < 2) {
-//			return;
-//		}
+		if (selectedCards.size() < 2) {
+			return;
+		}
 		
 		Iterator<Integer> it = selectedCards.iterator();
 		int c1 = it.next();
@@ -73,6 +73,37 @@ public class Hand {
 	}
 
 	public void moveSelectedCardsRight() {
+		if (selectedCards.size() < 1) {
+			return;
+		}
 		
+		Iterator<Integer> it = selectedCards.iterator();
+		int c1 = it.next();
+		
+		if (c1 < myCards.size()) {
+			int c2 = c1+1;
+			Card card1 = myCards.get(c1);
+			Card card2 = myCards.get(c2);
+			myCards.set(c1, card2);
+			myCards.set(c2, card1);
+		}
+	}
+	
+	public void moveSelectedCardsLeft() {
+		if (selectedCards.size() < 1) {
+			return;
+		}
+		
+		Iterator<Integer> it = selectedCards.iterator();
+		int c1 = it.next();
+		
+		if (c1 < myCards.size() && c1 > 0) {
+			int c2 = c1-1;
+			Card card1 = myCards.get(c1);
+			Card card2 = myCards.get(c2);
+			myCards.set(c1, card2);
+			myCards.set(c2, card1);
+		}
+
 	}
 }
