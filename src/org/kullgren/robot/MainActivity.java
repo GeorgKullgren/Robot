@@ -44,7 +44,7 @@ public class MainActivity extends FragmentActivity implements
 
 	    handView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-	        	hand.getCard(position).toggleSelectedFlag();
+	        	hand.selectCard(position);
 	        	if (selectedItem == position) {
 	        		selectedItem = -1;
 	        	}
@@ -68,9 +68,7 @@ public class MainActivity extends FragmentActivity implements
 	        		case 0:
 	        			// Move selected item right
 	        			if (selectedItem < 4) {
-	        	        	hand.swapCards(selectedItem, selectedItem+1);
-	        	        	++selectedItem;
-	        	        	hand.getCard(selectedItem).clearSelectedFlag();
+	        	        	hand.swapCards();
 	        	        	selectedItem = -1;
 	        	        	handAdapter.notifyDataSetChanged();
 	        			}
@@ -78,20 +76,16 @@ public class MainActivity extends FragmentActivity implements
 	        		case 1:
 	        			// Move selected item left
 	        			if (selectedItem > 0) {
-	        	        	hand.swapCards(selectedItem, selectedItem-1);
-	        	        	--selectedItem;
-	        	        	hand.getCard(selectedItem).clearSelectedFlag();
+	        	        	hand.swapCards();
 	        	        	selectedItem = -1;
 	        	        	handAdapter.notifyDataSetChanged();
 	        			}
 	        			break;
 	        		case 2:
 	        			// Throw away this card.
-        	        	hand.getCard(selectedItem).clearSelectedFlag();
         	        	selectedItem = -1;
 	        			break;
 	        		default:
-        	        	hand.getCard(selectedItem).clearSelectedFlag();
         	        	selectedItem = -1;
 	        			break;
 	        		}

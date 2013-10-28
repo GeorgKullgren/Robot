@@ -1,13 +1,18 @@
 package org.kullgren.robot;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Hand {
 	private ArrayList<Card> myCards;
+	private Set<Integer> selectedCards;
 	private int size;
 
 	public Hand() {
 		myCards = new ArrayList<Card>();
+		selectedCards = new HashSet<Integer>();
 	}
 
 	public void generateRandomCards(int numberOfCards) {
@@ -40,12 +45,34 @@ public class Hand {
 		size++;
 	}
 
-	public void swapCards(int i, int j) {
-		Card card1 = myCards.get(i);
-		Card card2 = myCards.get(j);
-		myCards.set(i, card2);
-		myCards.set(j, card1);
+	public void selectCard(int position) {
+		if (!selectedCards.contains(position)) {
+			selectedCards.add(position);
+		}
+		else {
+			selectedCards.remove(position);
+		}
+	}
+	
+	public boolean isCardSelected(int position) {
+		return selectedCards.contains(position);
+	}
+	
+	public void swapCards() {
+//		if (selectedCards.size() < 2) {
+//			return;
+//		}
+		
+		Iterator<Integer> it = selectedCards.iterator();
+		int c1 = it.next();
+		int c2 = it.next();
+		Card card1 = myCards.get(c1);
+		Card card2 = myCards.get(c2);
+		myCards.set(c1, card2);
+		myCards.set(c2, card1);
 	}
 
-
+	public void moveSelectedCardsRight() {
+		
+	}
 }

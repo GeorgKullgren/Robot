@@ -30,22 +30,4 @@ public class CardTest extends AndroidTestCase {
 		card.setType(Movement.Forward);
 		assertEquals(card.getType(), Movement.Forward);
 	}
-
-	@Test
-	public void test_set_and_check_selected_flag() {
-		Card card = new Card();
-		assertFalse(card.isSelected());
-		card.setSelectedFlag();
-		assertTrue(card.isSelected());
-	}
-
-	@Test
-	public void test_toggle_selected_flag() {
-		Card card = new Card();
-		assertFalse(card.isSelected());
-		card.toggleSelectedFlag();
-		assertTrue(card.isSelected());
-		card.toggleSelectedFlag();
-		assertFalse(card.isSelected());
-	}
 }
