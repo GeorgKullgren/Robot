@@ -7,6 +7,7 @@ public class Card {
 	public Card(Movement move, int pri) {
 		cardType = move;
 		priority = pri;
+		isInvalid = false;
 	}
 	
 	public void setPriority(int value) {
@@ -25,6 +26,19 @@ public class Card {
 		return cardType;
 	}
 
+	public void toggleInvalid() {
+		if (isInvalid) {
+			isInvalid = false;
+		}
+		else {
+			isInvalid = true;
+		}
+	}
+	
 	Movement cardType;
 	int priority;
+	boolean isInvalid;
+	public boolean isCardInvalid() {
+		return isInvalid;
+	}
 }

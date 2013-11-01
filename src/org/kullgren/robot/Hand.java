@@ -54,22 +54,19 @@ public class Hand {
 		}
 	}
 	
+	private void clearAllSelections() {
+		selectedCards.clear();
+	}
+	
 	public boolean isCardSelected(int position) {
 		return selectedCards.contains(position);
 	}
 	
-	public void swapCards() {
-		if (selectedCards.size() < 2) {
-			return;
-		}
-		
-		Iterator<Integer> it = selectedCards.iterator();
-		int c1 = it.next();
-		int c2 = it.next();
-		Card card1 = myCards.get(c1);
-		Card card2 = myCards.get(c2);
-		myCards.set(c1, card2);
-		myCards.set(c2, card1);
+	private void swapCards(int cardNo1, int cardNo2) {
+		Card card1 = myCards.get(cardNo1);
+		Card card2 = myCards.get(cardNo2);
+		myCards.set(cardNo1, card2);
+		myCards.set(cardNo2, card1);
 	}
 
 	public void moveSelectedCardsRight() {
@@ -104,6 +101,35 @@ public class Hand {
 			myCards.set(c1, card2);
 			myCards.set(c2, card1);
 		}
+	}
 
+	public void invalidateCard() {
+		if (selectedCards.size() < 1) {
+			return;
+		}
+		
+		Iterator<Integer> it = selectedCards.iterator();
+		
+		for (int i=0; i<selectedCards.size(); i++) {
+			int cardNo = it.next();
+			myCards.get(cardNo).toggleInvalid();
+		}
+		
+		for (int i=0; i<size; i++) {
+			if (myCards.get(i).isCardInvalid()) {
+				int newPosition = i+1;
+				while (newPosition < size && myCards.get(newPosition).isCardInvalid()) {
+					newPosition++;
+				}
+				if (newPosition < size) {
+					swapCards(i, newPosition);
+				}
+			}
+		}
+		clearAllSelections();
+	}
+
+	public boolean isCardInvalid(int i) {
+		return myCards.get(i).isCardInvalid();
 	}
 }

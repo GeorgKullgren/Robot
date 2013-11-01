@@ -49,6 +49,9 @@ public class DisplayCardsAdapter extends BaseAdapter {
         imageView.setImageResource(mThumbIds[ mHand.getCard(position).getType().ordinal() ]);
         if (mHand.isCardSelected(position)) {
         	imageView.setColorFilter(Color.BLUE, Mode.LIGHTEN);
+        } 
+        else if (mHand.isCardInvalid(position)) {
+        	imageView.setColorFilter(Color.BLACK, Mode.LIGHTEN);        	
         }
         else {
         	imageView.clearColorFilter();        	

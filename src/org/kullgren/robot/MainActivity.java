@@ -75,6 +75,7 @@ public class MainActivity extends FragmentActivity implements
 	        			break;
 	        		case 2:
 	        			// Throw away cards.
+	        			hand.invalidateCard();
 	        			break;
 	        		default:
 	        			break;

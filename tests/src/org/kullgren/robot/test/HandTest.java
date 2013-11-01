@@ -51,20 +51,6 @@ public class HandTest extends AndroidTestCase {
 	}
 
 	@Test
-	public void testSwapCards() {
-		hand.addCard(card0);
-		hand.addCard(card1);
-
-		hand.selectCard(0);
-		hand.selectCard(1);
-		
-		assertTrue(hand.getCard(0).equals(card0));
-		assertTrue(hand.getCard(1).equals(card1));
-		hand.swapCards();
-		assertTrue(hand.getCard(0).equals(card1));
-	}
-	
-	@Test
 	public void testMoveCardRight() {
 		hand.addCard(card0);
 		hand.addCard(card1);
@@ -90,8 +76,56 @@ public class HandTest extends AndroidTestCase {
 	
 	@Test
 	public void testInvalidateCard() {
+		hand.addCard(card0);
+
+		hand.selectCard(0);
+		hand.invalidateCard();
 		
+		assertTrue(hand.isCardInvalid(0));		
 	}
+	
+	@Test
+	public void testInvalidateFirstCardMovesCardToEndOfList() {
+		hand.addCard(card0);
+		hand.addCard(card1);
+		hand.addCard(card2);
+
+		hand.selectCard(0);
+		hand.invalidateCard();
+		
+		assertTrue(hand.getCard(2).equals(card0));
+		assertTrue(hand.isCardInvalid(2));
+	}
+	
+	@Test
+	public void testInvalidateMiddleCardMovesCardToEndOfList() {
+		hand.addCard(card0);
+		hand.addCard(card1);
+		hand.addCard(card2);
+
+		hand.selectCard(1);
+		hand.invalidateCard();
+		
+		assertTrue(hand.getCard(2).equals(card1));
+		assertTrue(hand.isCardInvalid(2));
+	}
+	
+	@Test
+	public void testInvalidateCardMovesCardAfterAllValidCards() {
+		hand.addCard(card0);
+		hand.addCard(card1);
+		hand.addCard(card2);
+
+		hand.selectCard(2);
+		hand.selectCard(0);
+		hand.invalidateCard();
+		
+		assertTrue(hand.getCard(0).equals(card1));
+		assertFalse(hand.isCardInvalid(0));
+		assertTrue(hand.isCardInvalid(1));
+		assertTrue(hand.isCardInvalid(2));
+	}
+	
 	
 	Hand hand;
 	Card card0;
