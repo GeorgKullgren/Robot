@@ -1,7 +1,5 @@
 package org.kullgren.robot.test;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.kullgren.robot.Card;
@@ -12,6 +10,7 @@ import android.test.AndroidTestCase;
 
 public class HandTest extends AndroidTestCase {
 
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		hand = new Hand();		
