@@ -35,6 +35,8 @@ public class MainActivity extends FragmentActivity implements
         Board board = new Board(20, 20);
         board.createRandomBoard();
 
+        Robot robot = new Robot();
+        
         GridView boardView = (GridView) findViewById(R.id.Board);
         boardView.setAdapter(new DisplayBoardAdapter(this, board));
 

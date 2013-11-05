@@ -7,7 +7,7 @@ public class Board {
 	private int Rows;
 	private int Columns;
 	private int numPositions;
-	
+	private Robot myRobot;
 	private ArrayList<BoardPosition> board;
 
 	public Board(int rows, int columns)
@@ -15,6 +15,16 @@ public class Board {
 		Rows = rows;
 		Columns = columns;
 		numPositions = rows*columns;
+		
+		board = new ArrayList<BoardPosition>();
+		for (int i=0; i<Rows*Columns; i++) {
+		    BoardPosition pos = new BoardPosition();
+		    board.add(pos);
+		}
+	}
+	
+	public BoardPosition get(int i, int j) {
+	    return get(j*Columns+i);
 	}
 	
 	public BoardPosition get(int position)
@@ -50,11 +60,6 @@ public class Board {
 	}
 	
 	public void createRandomBoard() {
-		board = new ArrayList<BoardPosition>();
-		for (int i=0; i<Rows*Columns; i++) {
-			BoardPosition pos = new BoardPosition();
-			board.add(pos);
-		}
 		createHole(2, 2);
 		createHole(17, 2);
 		createHole(2, 17);
@@ -119,4 +124,8 @@ public class Board {
 		setBlockedDirection(12, 11, Direction.Up);
 		
 	}
+
+    public void addRobot(Robot robot) {
+        myRobot = robot;
+    }
 }
