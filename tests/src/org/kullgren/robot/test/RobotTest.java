@@ -10,7 +10,7 @@ import android.test.AndroidTestCase;
 public class RobotTest extends AndroidTestCase {
 
     @Test
-    void testCreateRobot() {
+    public void testCreateRobot() {
         Robot myRobot = new Robot();
         assertNotNull(myRobot);
     }

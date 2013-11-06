@@ -32,6 +32,14 @@ public class Board {
 		return board.get(position);
 	}
 	
+	public void addRobot(Robot robot, int position) {
+	    board.get(position).addRobot(robot);
+	}
+	
+	public Robot getRobot(int position) {
+	    return board.get(position).getRobot();
+	}
+	
 	private void createHole(int x, int y) {
 		int position = y*Columns+x;
 		board.get(position).createHole();		
@@ -124,8 +132,4 @@ public class Board {
 		setBlockedDirection(12, 11, Direction.Up);
 		
 	}
-
-    public void addRobot(Robot robot) {
-        myRobot = robot;
-    }
 }

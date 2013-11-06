@@ -4,6 +4,7 @@ public class BoardPosition {
 	private boolean[] blockedDirection;
 	private int numBlockedDirections;
 	private boolean hole;
+	private Robot myRobot;
 	
 	public BoardPosition() {
 		blockedDirection = new boolean[4];
@@ -12,6 +13,7 @@ public class BoardPosition {
 		blockedDirection[2] = false;
 		blockedDirection[3] = false;
 		numBlockedDirections = 0;
+		myRobot = null;
 	}
 	
 	public void createHole() {
@@ -35,4 +37,12 @@ public class BoardPosition {
 	public int getNumBlockedDirections() {
 		return numBlockedDirections;
 	}
+
+    public void addRobot(Robot robot) {
+        myRobot = robot;
+    }
+
+    public Robot getRobot() {
+        return myRobot;
+    }
 }

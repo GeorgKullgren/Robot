@@ -32,7 +32,8 @@ public class BoardTest extends AndroidTestCase {
     @Test
     public void testAddRobotToBoard() {
         Robot robot = new Robot();
-        board.addRobot(robot);
+        board.addRobot(robot, 0);
+        assertTrue(board.getRobot(0).equals(robot));
     }
     Board board;
 }
