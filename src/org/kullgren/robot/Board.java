@@ -36,8 +36,16 @@ public class Board {
 	    board.get(position).addRobot(robot);
 	}
 	
+	public void addRobot(Robot robot, int i, int j) {
+	    addRobot(robot, j*Columns+i);
+	}
+	
 	public Robot getRobot(int position) {
 	    return board.get(position).getRobot();
+	}
+	
+	public Robot getRobot(int i, int j) {
+	    return getRobot(j*Columns+i);
 	}
 	
 	private void createHole(int x, int y) {
