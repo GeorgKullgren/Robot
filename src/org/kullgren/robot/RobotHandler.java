@@ -4,18 +4,29 @@ import org.kullgren.robot.Board;
 
 public class RobotHandler {
     Board myBoard;
-    Coordinate myPosition;
 
     public RobotHandler(Board board) {
         myBoard = board;
     }
 
-    public void addRobot(Robot robot, int i, int j) {
-        myBoard.addRobot(robot, i, j);
+    public int addRobot(Robot robot, int i, int j) {
+        return myBoard.addRobot(robot, i, j);
     }
 
-    public Coordinate moveRobot(Direction up) {
-        return new Coordinate(1, 1);
+    public int moveRobot(Direction movement) {
+        switch (movement) {
+        case Down:
+            break;
+        case Up:
+            break;
+        case Right:
+            break;
+        case Left:
+            break;
+        default:
+            break;
+        }
+        return myBoard.moveRobot(movement);
     }
 
 }

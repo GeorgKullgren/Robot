@@ -7,7 +7,7 @@ public class Board {
 	private int Rows;
 	private int Columns;
 	private int numPositions;
-	private Robot myRobot;
+	private int myRobotPosition;
 	private ArrayList<BoardPosition> board;
 
 	public Board(int rows, int columns)
@@ -32,20 +32,50 @@ public class Board {
 		return board.get(position);
 	}
 	
-	public void addRobot(Robot robot, int position) {
+	public int addRobot(Robot robot, int position) {
+	    myRobotPosition = position;
 	    board.get(position).addRobot(robot);
+	    return myRobotPosition;
 	}
 	
-	public void addRobot(Robot robot, int i, int j) {
-	    addRobot(robot, j*Columns+i);
+	public int addRobot(Robot robot, int i, int j) {
+	    return addRobot(robot, j*Columns+i);
 	}
 	
-	public Robot getRobot(int position) {
-	    return board.get(position).getRobot();
+	public Robot getRobot() {
+	    return board.get(myRobotPosition).getRobot();
 	}
 	
-	public Robot getRobot(int i, int j) {
-	    return getRobot(j*Columns+i);
+	public int moveRobot(Direction direction) {
+	    int offset = 0;
+	    
+	    switch (direction) {
+	    case Up:
+	        offset = -Columns;
+	        break;
+	    case Down:
+	        offset = Columns;
+	        break;
+	    case Left:
+	        if (((myRobotPosition+1) % Columns) != 1) {
+	            offset = -1;	            
+	        }
+	        break;
+	    case Right:
+            if (((myRobotPosition+1) % Columns) != 0) {
+                offset = 1;                
+            }
+	        break;
+	    default:
+	        offset = 0;
+	    }
+	    
+	    int newPosition = myRobotPosition +offset;
+	    if (newPosition < numPositions &&
+	            newPosition >= 0) {
+	        addRobot(getRobot(), newPosition);
+	    }
+	    return myRobotPosition;
 	}
 	
 	private void createHole(int x, int y) {

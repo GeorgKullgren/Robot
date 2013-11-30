@@ -48,7 +48,7 @@ public class DisplayBoardAdapter extends BaseAdapter {
         }
 
         Resources r = mContext.getResources();
-        int numLayers = mBoard.get(position).getNumBlockedDirections() + 1;
+        int numLayers = mBoard.get(position).getNumBlockedDirections() + 1 + mBoard.get(position).numRobotsPresent();
         int currentLayer = 0;
         Drawable[] layers = new Drawable[numLayers];
         if (mBoard.get(position).isHole()) {
@@ -76,6 +76,12 @@ public class DisplayBoardAdapter extends BaseAdapter {
         if (mBoard.get(position).isBlocked(Direction.Right)) {
             layers[currentLayer] = r.getDrawable(mThumbIds[2]);
             ++currentLayer;
+        }
+        
+        Robot myRobot = mBoard.get(position).getRobot();
+        if (myRobot != null) {
+            layers[currentLayer] = r.getDrawable(mThumbIds[4]);
+            ++currentLayer;            
         }
 
         LayerDrawable layerDrawable = new LayerDrawable(layers);
@@ -109,5 +115,5 @@ public class DisplayBoardAdapter extends BaseAdapter {
 
     // references to our images
     private Integer[] mThumbIds = { R.drawable.open_space,
-            R.drawable.blocked_ns, R.drawable.blocked_ew, R.drawable.sink };
+            R.drawable.blocked_ns, R.drawable.blocked_ew, R.drawable.sink, R.drawable.robot };
 }

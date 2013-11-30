@@ -33,7 +33,7 @@ public class BoardTest extends AndroidTestCase {
     public void testAddRobotToBoard() {
         Robot robot = new Robot();
         board.addRobot(robot, 0);
-        assertTrue(board.getRobot(0).equals(robot));
+        assertTrue(board.getRobot().equals(robot));
     }
     Board board;
 }

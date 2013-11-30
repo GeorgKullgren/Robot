@@ -1,8 +1,8 @@
 package org.kullgren.robot;
 
 public class Coordinate {
-    int xCoordinate;
-    int yCoordinate;
+    private int xCoordinate;
+    private int yCoordinate;
     
     public Coordinate(int x, int y) {
         xCoordinate = x;

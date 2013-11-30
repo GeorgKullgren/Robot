@@ -37,7 +37,14 @@ public class BoardPosition {
 	public int getNumBlockedDirections() {
 		return numBlockedDirections;
 	}
-
+	
+	public int numRobotsPresent() {
+	    if (myRobot != null) {
+	        return 1;
+	    }
+	    return 0;
+	}
+	
     public void addRobot(Robot robot) {
         myRobot = robot;
     }
