@@ -32,16 +32,15 @@ public class MainActivity extends FragmentActivity implements
         final Hand hand = new Hand();
         hand.generateRandomCards(5);
 
-        Board board = new Board(20, 20);
+        final Board board = new Board(20, 20);
         board.createRandomBoard();
 
-        RobotHandler handler = new RobotHandler(board);
-        
         Robot robot = new Robot();
-        handler.addRobot(robot, 9, 19);
+        board.addRobot(robot, 9, 19);
         
         GridView boardView = (GridView) findViewById(R.id.Board);
-        boardView.setAdapter(new DisplayBoardAdapter(this, board));
+        final BaseAdapter boardAdapter = new DisplayBoardAdapter(this, board);
+        boardView.setAdapter(boardAdapter);
 
         GridView handView = (GridView) findViewById(R.id.Hand);
         final BaseAdapter handAdapter = new DisplayCardsAdapter(this, hand);
@@ -83,9 +82,11 @@ public class MainActivity extends FragmentActivity implements
                         hand.invalidateCard();
                         break;
                     default:
+                        hand.execute(board);
                         break;
                     }
                     handAdapter.notifyDataSetChanged();
+                    boardAdapter.notifyDataSetChanged();
                 }
             }
         });

@@ -8,6 +8,7 @@ public class Board {
 	private int Columns;
 	private int numPositions;
 	private int myRobotPosition;
+	private Direction myRobotDirection;
 	private ArrayList<BoardPosition> board;
 
 	public Board(int rows, int columns)
@@ -34,6 +35,7 @@ public class Board {
 	
 	public int addRobot(Robot robot, int position) {
 	    myRobotPosition = position;
+	    myRobotDirection = Direction.Up;
 	    board.get(position).addRobot(robot);
 	    return myRobotPosition;
 	}
@@ -46,38 +48,91 @@ public class Board {
 	    return board.get(myRobotPosition).getRobot();
 	}
 	
-	public int moveRobot(Direction direction) {
-	    int offset = 0;
-	    
-	    switch (direction) {
-	    case Up:
-	        offset = -Columns;
+	public int moveRobot(Movement cardType) {
+
+	    switch (cardType) {
+	    case Forward:
+	        moveRobot(myRobotDirection);
 	        break;
-	    case Down:
-	        offset = Columns;
+	    case TurnLeft:
+	        turnRobotLeft(1);
 	        break;
-	    case Left:
-	        if (((myRobotPosition+1) % Columns) != 1) {
-	            offset = -1;	            
-	        }
+	    case TurnRight:
+	        turnRobotRight(1);
 	        break;
-	    case Right:
-            if (((myRobotPosition+1) % Columns) != 0) {
-                offset = 1;                
-            }
+	    case Wait:
 	        break;
-	    default:
-	        offset = 0;
 	    }
 	    
-	    int newPosition = myRobotPosition +offset;
-	    if (newPosition < numPositions &&
-	            newPosition >= 0) {
-	        addRobot(getRobot(), newPosition);
-	    }
 	    return myRobotPosition;
 	}
 	
+    private void turnRobotLeft(int i) {
+        switch (myRobotDirection) {
+        case Up:
+            myRobotDirection = Direction.Left;
+            break;
+        case Right:
+            myRobotDirection = Direction.Up;
+            break;
+        case Down:
+            myRobotDirection = Direction.Right;
+            break;
+        case Left:
+            myRobotDirection = Direction.Down;
+            break;
+        }
+    }
+
+    private void turnRobotRight(int i) {
+        switch (myRobotDirection) {
+        case Up:
+            myRobotDirection = Direction.Right;
+            break;
+        case Right:
+            myRobotDirection = Direction.Down;
+            break;
+        case Down:
+            myRobotDirection = Direction.Left;
+            break;
+        case Left:
+            myRobotDirection = Direction.Up;
+            break;
+        }
+    }
+
+    public int moveRobot(Direction direction) {
+        int offset = 0;
+
+        switch (direction) {
+        case Up:
+            offset = -Columns;
+            break;
+        case Down:
+            offset = Columns;
+            break;
+        case Left:
+            if (((myRobotPosition+1) % Columns) != 1) {
+                offset = -1;                
+            }
+            break;
+        case Right:
+            if (((myRobotPosition+1) % Columns) != 0) {
+                offset = 1;                
+            }
+            break;
+        default:
+            offset = 0;
+        }
+        
+        int newPosition = myRobotPosition +offset;
+        if (newPosition < numPositions &&
+                newPosition >= 0) {
+            addRobot(getRobot(), newPosition);
+        }
+        return myRobotPosition;
+    }
+    
 	private void createHole(int x, int y) {
 		int position = y*Columns+x;
 		board.get(position).createHole();		

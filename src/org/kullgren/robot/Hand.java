@@ -129,6 +129,12 @@ public class Hand {
         myCards.set(cardNo2, card1);
     }
 
+    public void execute(Board board) {
+        for (int i = 0; i < size; i++) {
+            board.moveRobot(myCards.get(i).cardType);
+        }
+    }
+    
     private ArrayList<Card> myCards;
     private Set<Integer> selectedCards;
     private int size;
