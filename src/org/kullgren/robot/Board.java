@@ -8,7 +8,7 @@ public class Board {
 	private int Columns;
 	private int numPositions;
 	private int myRobotPosition;
-	private Direction myRobotDirection;
+	private Direction myRobotDirection = Direction.Up;
 	private ArrayList<BoardPosition> board;
 
 	public Board(int rows, int columns)
@@ -35,7 +35,6 @@ public class Board {
 
 	public int addRobot(Robot robot, int position) {
 	    myRobotPosition = position;
-	    myRobotDirection = Direction.Up;
 	    board.get(position).addRobot(robot);
 	    return myRobotPosition;
 	}

@@ -131,7 +131,9 @@ public class Hand {
 
     public void execute(Board board) {
         for (int i = 0; i < size; i++) {
-            board.moveRobot(myCards.get(i).cardType);
+            if (! myCards.get(i).isCardInvalid()) {
+                board.moveRobot(myCards.get(i).cardType);
+            }
         }
     }
     
