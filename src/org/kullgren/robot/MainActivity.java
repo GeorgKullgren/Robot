@@ -50,11 +50,6 @@ public class MainActivity extends FragmentActivity implements
             public void onItemClick(AdapterView<?> parent, View v,
                     int position, long id) {
                 hand.selectCard(position);
-                if (selectedItem == position) {
-                    selectedItem = -1;
-                } else {
-                    selectedItem = position;
-                }
                 handAdapter.notifyDataSetChanged();
             }
         });
@@ -65,29 +60,28 @@ public class MainActivity extends FragmentActivity implements
         controlView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                     int position, long id) {
-                if (position == 3) {
+                switch (position) {
+                case 0:
+                    // Move selected item right
+                    hand.moveSelectedCardsRight();
+                    break;
+                case 1:
+                    // Move selected item left
+                    hand.moveSelectedCardsLeft();
+                    break;
+                case 2:
+                    // Throw away cards.
+                    hand.invalidateCard();
+                    break;
+                case 3:
                     // execute moves
-                } else if (selectedItem != -1) {
-                    switch (position) {
-                    case 0:
-                        // Move selected item right
-                        hand.moveSelectedCardsRight();
-                        break;
-                    case 1:
-                        // Move selected item left
-                        hand.moveSelectedCardsLeft();
-                        break;
-                    case 2:
-                        // Throw away cards.
-                        hand.invalidateCard();
-                        break;
-                    default:
-                        hand.execute(board);
-                        break;
-                    }
-                    handAdapter.notifyDataSetChanged();
+                    hand.execute(board);
                     boardAdapter.notifyDataSetChanged();
+                    break;
+                default:
+                    break;
                 }
+                handAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -119,40 +113,8 @@ public class MainActivity extends FragmentActivity implements
     public boolean onNavigationItemSelected(int position, long id) {
         // When the given dropdown item is selected, show its contents in the
         // container view.
-        Fragment fragment = new DummySectionFragment();
-        Bundle args = new Bundle();
-        args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-        fragment.setArguments(args);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment).commit();
+
         return true;
-    }
-
-    /**
-     * A dummy fragment representing a section of the app, but that simply
-     * displays dummy text.
-     */
-    public static class DummySectionFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        public static final String ARG_SECTION_NUMBER = "section_number";
-
-        public DummySectionFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main_dummy,
-                    container, false);
-            TextView dummyTextView = (TextView) rootView
-                    .findViewById(R.id.section_label);
-            dummyTextView.setText(Integer.toString(getArguments().getInt(
-                    ARG_SECTION_NUMBER)));
-            return rootView;
-        }
     }
 
 }

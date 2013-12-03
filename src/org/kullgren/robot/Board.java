@@ -23,29 +23,65 @@ public class Board {
 		    board.add(pos);
 		}
 	}
-	
+
 	public BoardPosition get(int i, int j) {
 	    return get(j*Columns+i);
 	}
-	
+
 	public BoardPosition get(int position)
 	{
 		return board.get(position);
 	}
-	
+
 	public int addRobot(Robot robot, int position) {
 	    myRobotPosition = position;
 	    myRobotDirection = Direction.Up;
 	    board.get(position).addRobot(robot);
 	    return myRobotPosition;
 	}
-	
+
 	public int addRobot(Robot robot, int i, int j) {
 	    return addRobot(robot, j*Columns+i);
 	}
-	
+
 	public Robot getRobot() {
 	    return board.get(myRobotPosition).getRobot();
+	}
+
+	public int getRobotPosition()
+	{
+	    return myRobotPosition;
+	}
+
+	public int moveRobot(Direction direction) {
+	    int offset = 0;
+
+	    switch (direction) {
+	    case Up:
+	        offset = -Columns;
+	        break;
+	    case Down:
+	        offset = Columns;
+	        break;
+	    case Left:
+	        if (((myRobotPosition+1) % Columns) != 1) {
+	            offset = -1;
+	        }
+	        break;
+	    case Right:
+	        if (((myRobotPosition+1) % Columns) != 0) {
+	            offset = 1;
+	        }
+	        break;
+	    default:
+	        offset = 0;
+	    }
+
+	    int newPosition = myRobotPosition +offset;
+	    if (newPosition < numPositions && newPosition >= 0) {
+	        addRobot(board.get(myRobotPosition).deleteRobot(), newPosition);
+	    }
+	    return myRobotPosition;
 	}
 	
 	public int moveRobot(Movement cardType) {
@@ -101,38 +137,6 @@ public class Board {
         }
     }
 
-    public int moveRobot(Direction direction) {
-        int offset = 0;
-
-        switch (direction) {
-        case Up:
-            offset = -Columns;
-            break;
-        case Down:
-            offset = Columns;
-            break;
-        case Left:
-            if (((myRobotPosition+1) % Columns) != 1) {
-                offset = -1;                
-            }
-            break;
-        case Right:
-            if (((myRobotPosition+1) % Columns) != 0) {
-                offset = 1;                
-            }
-            break;
-        default:
-            offset = 0;
-        }
-        
-        int newPosition = myRobotPosition +offset;
-        if (newPosition < numPositions &&
-                newPosition >= 0) {
-            addRobot(getRobot(), newPosition);
-        }
-        return myRobotPosition;
-    }
-    
 	private void createHole(int x, int y) {
 		int position = y*Columns+x;
 		board.get(position).createHole();		

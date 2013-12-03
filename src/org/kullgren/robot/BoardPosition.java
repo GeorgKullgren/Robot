@@ -49,6 +49,13 @@ public class BoardPosition {
         myRobot = robot;
     }
 
+    public Robot deleteRobot()
+    {
+        Robot tmpRobot = myRobot;
+        myRobot = null;
+        return tmpRobot;
+    }
+
     public Robot getRobot() {
         return myRobot;
     }

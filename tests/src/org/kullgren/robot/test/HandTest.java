@@ -2,9 +2,11 @@ package org.kullgren.robot.test;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.kullgren.robot.Board;
 import org.kullgren.robot.Card;
 import org.kullgren.robot.Hand;
 import org.kullgren.robot.Movement;
+import org.kullgren.robot.Robot;
 
 import android.test.AndroidTestCase;
 
@@ -22,6 +24,7 @@ public class HandTest extends AndroidTestCase {
     @Test
     public void testGenerateRandomCards() {
         hand.generateRandomCards(5);
+        assertEquals(5, hand.numCards());
     }
 
     @Test
@@ -147,6 +150,25 @@ public class HandTest extends AndroidTestCase {
         assertFalse(hand.isCardInvalid(0));
         assertTrue(hand.isCardInvalid(1));
         assertTrue(hand.isCardInvalid(2));
+    }
+
+    @Test
+    public void testExecuteHand() {
+        Board myBoard = new Board(20, 20);
+        myBoard.createRandomBoard();
+
+        Robot robot = new Robot();
+        myBoard.addRobot(robot, 9, 19);
+        int originalPosition = myBoard.getRobotPosition();
+
+        hand.generateRandomCards(5);
+        assertEquals(5, hand.numCards());
+
+        hand.execute(myBoard);
+        int newPosition = myBoard.getRobotPosition();
+
+        assertEquals(originalPosition, newPosition+20);
+        assertNotNull(myBoard.getRobot());
     }
 
     Hand hand;
